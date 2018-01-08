@@ -31,7 +31,6 @@ describe("parse basic key values",function(){
   it("parse when there are leading spaces before key",function(){
     let actual=kvParser.parse(" key=value");
     let expected = {'key':'value'};
-    console.log(Object.keys(actual));
     chaiAssert.ownInclude(expected,actual);
     chaiAssert.equal("value",actual.key);
     chaiAssert.equal(1,actual.length());
@@ -147,22 +146,38 @@ describe("multiple keys",function(){
 
   it("parse more than one key",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("key=value anotherkey=anothervalue"));
+    let actual=kvParser.parse("key=value anotherkey=anothervalue");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse more than one key when keys have leading spaces",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("   key=value anotherkey=anothervalue"));
+    let actual=kvParser.parse("   key=value anotherkey=anothervalue");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse more than one key when keys have trailing spaces",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("key  =value anotherkey  =anothervalue"));
+    let actual=kvParser.parse("key  =value anotherkey  =anothervalue");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse more than one key when keys have leading and trailing spaces",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("  key  =value anotherkey  =anothervalue"));
+    let actual=kvParser.parse("  key  =value anotherkey  =anothervalue");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 });
 
@@ -173,22 +188,34 @@ describe("single values with quotes",function(){
 
   it("parse a single value with quotes",function(){
     let expected={key:"value"};
-    assert.deepEqual(expected,kvParser.parse("key=\"value\""));
+    let actual=kvParser.parse("key=\"value\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal(1,actual.length());
   });
 
   it("parse a single quoted value that has spaces in it",function(){
     let expected={key:"va lue"};
-    assert.deepEqual(expected,kvParser.parse("key=\"va lue\""));
+    let actual=kvParser.parse("key=\"va lue\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("va lue",actual.key);
+    chaiAssert.equal(1,actual.length());
   });
 
   it("parse a single quoted value that has spaces in it and leading spaces",function(){
     let expected={key:"va lue"};
-    assert.deepEqual(expected,kvParser.parse("key=   \"va lue\""));
+    let actual=kvParser.parse("key=   \"va lue\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("va lue",actual.key);
+    chaiAssert.equal(1,actual.length());
   });
 
   it("parse a single quoted value that has spaces in it and trailing spaces",function(){
     let expected={key:"va lue"};
-    assert.deepEqual(expected,kvParser.parse("key=\"va lue\"   "));
+    let actual=kvParser.parse("key=\"va lue\"   ");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("va lue",actual.key);
+    chaiAssert.equal(1,actual.length());
   });
 });
 
