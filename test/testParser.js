@@ -222,44 +222,76 @@ describe("single values with quotes",function(){
 describe("multiple values with quotes",function(){
   it("parse more than one value with quotes",function(){
     let expected={key:"va lue",anotherkey:"another value"};
-    assert.deepEqual(expected,kvParser.parse("key=\"va lue\" anotherkey=\"another value\""));
+    let actual=kvParser.parse("key=\"va lue\" anotherkey=\"another value\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("va lue",actual.key);
+    chaiAssert.equal("another value",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse more than one value with quotes with leading spaces",function(){
     let expected={key:"va lue",anotherkey:"another value"};
-    assert.deepEqual(expected,kvParser.parse("key= \"va lue\" anotherkey= \"another value\""));
+    let actual=kvParser.parse("key= \"va lue\" anotherkey= \"another value\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("va lue",actual.key);
+    chaiAssert.equal("another value",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse more than one value with quotes when keys have trailing spaces",function(){
     let expected={key:"va lue",anotherkey:"another value"};
-    assert.deepEqual(expected,kvParser.parse("key = \"va lue\" anotherkey = \"another value\""));
+    let actual=kvParser.parse("key = \"va lue\" anotherkey = \"another value\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("va lue",actual.key);
+    chaiAssert.equal("another value",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 });
 
 describe("mixed values with both quotes and without",function(){
   it("parse simple values with and without quotes",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("key=value anotherkey=\"anothervalue\""));
+    let actual=kvParser.parse("key=value anotherkey=\"anothervalue\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse simple values with and without quotes and leading spaces on keys",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("   key=value anotherkey=\"anothervalue\""));
+    let actual=kvParser.parse("   key=value anotherkey=\"anothervalue\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse simple values with and without quotes and trailing spaces on keys",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("key  =value anotherkey  =\"anothervalue\""));
+    let actual=kvParser.parse("key  =value anotherkey  =\"anothervalue\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse simple values with and without quotes and leading and trailing spaces on keys",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("  key  =value anotherkey  = \"anothervalue\""));
+    let actual=kvParser.parse("  key  =value anotherkey  = \"anothervalue\"");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 
   it("parse simple values with and without quotes(quoted values first)",function(){
     let expected={key:"value",anotherkey:"anothervalue"};
-    assert.deepEqual(expected,kvParser.parse("anotherkey=\"anothervalue\" key=value"));
+    let actual=kvParser.parse("anotherkey=\"anothervalue\" key=value");
+    chaiAssert.ownInclude(expected,actual);
+    chaiAssert.equal("value",actual.key);
+    chaiAssert.equal("anothervalue",actual.anotherkey);
+    chaiAssert.equal(2,actual.length());
   });
 });
 
